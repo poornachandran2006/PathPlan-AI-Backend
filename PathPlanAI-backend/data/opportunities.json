@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "title": "Backend Intern",
+    "type": "internship",
+    "required_skills": ["python", "fastapi", "sql"],
+    "difficulty": "safe"
+  },
+  {
+    "id": 2,
+    "title": "Full Stack Intern",
+    "type": "internship",
+    "required_skills": ["javascript", "react", "node"],
+    "difficulty": "stretch"
+  },
+  {
+    "id": 3,
+    "title": "Machine Learning Intern",
+    "type": "internship",
+    "required_skills": ["python", "machine learning", "data analysis"],
+    "difficulty": "stretch"
+  },
+  {
+    "id": 4,
+    "title": "AI Hackathon",
+    "type": "hackathon",
+    "required_skills": ["python", "machine learning"],
+    "difficulty": "aspirational"
+  }
+]
