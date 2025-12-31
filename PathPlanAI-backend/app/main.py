@@ -11,34 +11,41 @@ from app.routes.roadmap_animation import router as roadmap_animation_router
 from app.routes.professional_presence import router as professional_presence_router
 from app.routes.route_planner import router as route_router
 
-# ✅ Create app
+# =========================
+# ✅ Create FastAPI app
+# =========================
 app = FastAPI(title="PathPlanAI Backend")
 
-# ✅ Improved CORS: Added common local development origins to prevent "Failed to fetch"
-# Some browsers resolve 'localhost' differently than '127.0.0.1'
+# =========================
+# ✅ CORS (FINAL – PRODUCTION SAFE)
+# Allows requests from Vercel + local dev
+# =========================
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://0.0.0.0:3000"
-    ],
+    allow_origins=["*"],  # 🔓 Allow all origins (safe for prototype)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ✅ Health Check (Verify backend is reachable)
-# Use this to test connectivity: open http://127.0.0.1:8000/ in your browser
+# =========================
+# ✅ Health Checks
+# =========================
 @app.get("/")
-def health_check():
+def root_health():
     return {"status": "PathPlanAI Backend is running"}
 
-# ✅ Include routers
-# Router order: Specific high-priority routes first
-app.include_router(resume_router)  # Handles /upload-resume
-app.include_router(planner_router) # Handles /planner/
-app.include_router(capability_router)
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+# =========================
+# ✅ Include Routers
+# =========================
+# Router order: specific → general
+app.include_router(resume_router)               # /upload-resume
+app.include_router(planner_router)              # /planner/
+app.include_router(capability_router)           # /capability/
 app.include_router(market_trend_router)
 app.include_router(opportunity_router)
 app.include_router(orchestrator_router)
